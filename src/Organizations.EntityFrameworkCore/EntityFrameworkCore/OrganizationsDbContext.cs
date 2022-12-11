@@ -12,6 +12,8 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Organizations.Classifications;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace Organizations.EntityFrameworkCore;
 
@@ -58,6 +60,8 @@ public class OrganizationsDbContext :
 
     }
 
+    public DbSet<Classification> Classifications { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -75,11 +79,11 @@ public class OrganizationsDbContext :
 
         /* Configure your own tables/entities inside here */
 
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(OrganizationsConsts.DbTablePrefix + "YourEntities", OrganizationsConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
+        builder.Entity<Classification>(b =>
+        {
+            b.ToTable(OrganizationsConsts.DbTablePrefix + "Classification", OrganizationsConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(50);
+        });
     }
 }

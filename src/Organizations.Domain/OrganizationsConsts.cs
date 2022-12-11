@@ -2,7 +2,7 @@
 
 public static class OrganizationsConsts
 {
-    public const string DbTablePrefix = "App";
+    public const string DbTablePrefix = null;//"App";
 
-    public const string DbSchema = null;
+    public const string DbSchema = "org";
 }
